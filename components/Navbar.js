@@ -81,7 +81,7 @@ const Navbar = () => {
   useEffect(() => {
     if (isInitialized && isAuthenticated) {
       enableWeb3().then((val) => {
-        switchNetwork("0x152");
+        if (val) switchNetwork("0x19");
         // mint_by_owner();
       });
       if (user) setAccount(user);

@@ -38,7 +38,7 @@ const Sidebar = () => {
     console.log("getBalance");
     console.log(account);
     var balances = await getBalances({
-      chain: "0x152",
+      chain: "0x19",
     });
 
     setSptBalance(
@@ -48,7 +48,7 @@ const Sidebar = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     var token = await Moralis.Web3API.account.getNativeBalance({
       address: account,
-      chain: "0x152",
+      chain: "0x19",
     });
     setBalance((token.balance / 10 ** 18).toFixed(2));
   }

@@ -1,13 +1,13 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import React, { useEffect } from 'react'
-import { useMoralis, useMoralisWeb3Api } from 'react-moralis'
-import { toast } from 'react-toastify'
-import Upgrades from '../components/Upgrades'
-import Warship from '../components/Warship'
-import styles from '../styles/Home.module.css'
-import InventoryABI from '../build/contracts/SpaceOzInventory.json'
-import { InventoryAddress } from './_app'
+import Head from "next/head";
+import Image from "next/image";
+import React, { useEffect } from "react";
+import { useMoralis, useMoralisWeb3Api } from "react-moralis";
+import { toast } from "react-toastify";
+import Upgrades from "../components/Upgrades";
+import Warship from "../components/Warship";
+import styles from "../styles/Home.module.css";
+import InventoryABI from "../build/contracts/SpaceOzInventory.json";
+import { InventoryAddress } from "./_app";
 
 export const metadata = [
   {
@@ -73,122 +73,116 @@ export const metadata = [
     type: "Upgrades",
     price: 0.05 * 10 ** 18,
     priceSPZ: 50,
-  }
-
-]
+  },
+];
 
 export default function Home() {
-  const [ships, setShips] = React.useState([])
-  const [upgrades, setUpgrades] = React.useState([])
-  const Web3API = useMoralisWeb3Api()
-  const { isInitialized,isAuthenticated, isWeb3Enabled, enableWeb3 } = useMoralis()
-
-  
+  const [ships, setShips] = React.useState([]);
+  const [upgrades, setUpgrades] = React.useState([]);
+  const Web3API = useMoralisWeb3Api();
+  const { isInitialized, isAuthenticated, isWeb3Enabled, enableWeb3 } =
+    useMoralis();
 
   const getData = async () => {
     if (isInitialized && isWeb3Enabled) {
-      console.log("getData")
+      console.log("getData");
       const json = await Web3API.token.getAllTokenIds({
         address: InventoryAddress,
-        chain: '0x152'
-      })
+        chain: "0x19",
+      });
 
-      const ids = json.result.map(e => parseInt(e.token_id));
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const ids = json.result.map((e) => parseInt(e.token_id));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const owners_json = await Web3API.token.getNFTOwners({
-        chain: '0x152',
+        chain: "0x19",
         address: InventoryAddress,
-      })
-      console.log(owners_json)
+      });
+      console.log(owners_json);
       for (const key in ids) {
-
         const id = ids[key];
-        console.log(id)
-        await new Promise(resolve => setTimeout(resolve, 300));
+        console.log(id);
+        await new Promise((resolve) => setTimeout(resolve, 300));
 
-        var data = metadata.find(e => e.id === id);
-        const owners = owners_json.result.filter(e => e.token_id == id).map(e => e.owner_of);
-        console.log(owners)
+        var data = metadata.find((e) => e.id === id);
+        const owners = owners_json.result
+          .filter((e) => e.token_id == id)
+          .map((e) => e.owner_of);
+        console.log(owners);
         if (data.type === "Warship") {
-          setShips(val => {
-            val.push({ ...data, owners: owners })
+          setShips((val) => {
+            val.push({ ...data, owners: owners });
             // remove duplicates from array where id is the same
-            return [...new Set(val.map(item => item.id))].map(id => {
-              return val.find(item => item.id === id)
-            })
-          })
-        }
-        else {
-          setUpgrades(val => {
-            val.push({ ...data, owners: owners })
+            return [...new Set(val.map((item) => item.id))].map((id) => {
+              return val.find((item) => item.id === id);
+            });
+          });
+        } else {
+          setUpgrades((val) => {
+            val.push({ ...data, owners: owners });
             // remove duplicates from array where id is the same
-            return [...new Set(val.map(item => item.id))].map(id => {
-              return val.find(item => item.id === id)
-            })
-          })
+            return [...new Set(val.map((item) => item.id))].map((id) => {
+              return val.find((item) => item.id === id);
+            });
+          });
         }
       }
     }
-  }
-
+  };
 
   const updateOwners = async (id) => {
     if (isAuthenticated && isWeb3Enabled) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const owners_json = await Web3API.token.getTokenIdOwners({
-        chain: '0x152',
+        chain: "0x19",
         token_id: id,
         address: InventoryAddress,
-      })
-      var data = metadata.find(e => e.id === id);
-      console.log(owners_json)
-      const owners = owners_json.result.map(e => e.owner_of);
-      console.log(owners)
+      });
+      var data = metadata.find((e) => e.id === id);
+      console.log(owners_json);
+      const owners = owners_json.result.map((e) => e.owner_of);
+      console.log(owners);
       if (data.type === "Warship") {
-        setShips(val => {
-          return val.map(item => {
+        setShips((val) => {
+          return val.map((item) => {
             if (item.id === id) {
-              return { ...item, owners: owners }
+              return { ...item, owners: owners };
             }
-            return item
-          }
-          )
-        })
-      }
-      else {
-        setUpgrades(val => {
-          return val.map(item => {
+            return item;
+          });
+        });
+      } else {
+        setUpgrades((val) => {
+          return val.map((item) => {
             if (item.id === id) {
-              return { ...item, owners: owners }
+              return { ...item, owners: owners };
             }
-            return item
-          })
-        })
+            return item;
+          });
+        });
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (!isWeb3Enabled) {
-      enableWeb3()
+      enableWeb3();
     }
-    getData()
-  }, [isInitialized, isWeb3Enabled])
+    getData();
+  }, [isInitialized, isWeb3Enabled]);
   return (
-    <div className={styles['home-container']}>
+    <div className={styles["home-container"]}>
       <div style={{ padding: "2rem" }}>
         <h1>Trending Warships</h1>
-        <div className={styles['horizontal-listview-container']}>
-          <div className={styles['horizontal-listview']}>
-            {
-              ships.map((val, i) => (
-                <Warship key={i} ship={val} updateOwner={updateOwners} />))
-            }
+        <div className={styles["horizontal-listview-container"]}>
+          <div className={styles["horizontal-listview"]}>
+            {ships.map((val, i) => (
+              <Warship key={i} ship={val} updateOwner={updateOwners} />
+            ))}
           </div>
         </div>
         <h1>Top Upgrades</h1>
 
-        <table className={styles['upgrade-table']}>
+        <table className={styles["upgrade-table"]}>
           <thead>
             <tr style={{ padding: "1rem" }}>
               <th></th>
@@ -199,11 +193,16 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {
-              upgrades.map((val, i) => {
-                return <Upgrades key={i} index={i + 1} upgrade={val} updateOwner={updateOwners} />
-              })
-            }
+            {upgrades.map((val, i) => {
+              return (
+                <Upgrades
+                  key={i}
+                  index={i + 1}
+                  upgrade={val}
+                  updateOwner={updateOwners}
+                />
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -213,9 +212,9 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '} CodeDecoders
+          Powered by CodeDecoders
         </a>
       </footer>
     </div>
-  )
+  );
 }
