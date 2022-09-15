@@ -56,18 +56,19 @@ const Playground = () => {
         setBullets((val) => [...val, id]);
       }
     });
-    var balances = await fetchERC20Balances({
-      chain: "0x19",
-    });
-    console.log(balances);
+    const apiKey = process.env.NEXT_PUBLIC_COVALENT_API_KEY;
+    var response = await fetch(
+      `https://api.covalenthq.com/v1/25/address/${account}/balances_v2/?quote-currency=USD&format=JSON&nft=false&no-nft-fetch=true&key=${apiKey}`
+    );
+    var balances = (await response.json()).data.items;
+
     setCoins(
       parseInt(
-        balances?.find(
-          (e) =>
-            e.token_address === "0xbe1b7d3c99f480648443c0f6f542336e9eede3d9"
-        )?.balance ?? 0
+        balances?.find((token) => token.contract_ticker_symbol === "SPT")
+          ?.balance ?? "0"
       )
     );
+    console.log(balances);
     setLoading(false);
   };
 
