@@ -41,8 +41,8 @@ const Upgrades = ({ upgrade, index, updateOwner }) => {
         enableWeb3()
     }, [])
 
-    const handleBuyWithTCRO = async () => {
-        console.log('buy with tCRO')
+    const handleBuyWithCRO = async () => {
+        console.log('buy with CRO')
         if (isWeb3Enabled && isAuthenticated) {
             var transaction = await mint_existing({
                 params: {
@@ -107,7 +107,7 @@ const Upgrades = ({ upgrade, index, updateOwner }) => {
             <td><span><img src={upgrade.image} className={styles['image']} />{upgrade.name}</span></td>
             <td className={styles.center}>20% Damage</td>
             <td className={styles['action-bar']}>
-                <div className={styles['action-button']} onClick={handleBuyWithTCRO}>{upgrade.price / 10 ** 18} tCRO</div>
+                <div className={styles['action-button']} onClick={handleBuyWithCRO}>{upgrade.price / 10 ** 18} CRO</div>
                 <div className={styles['action-button']} onClick={handleByWithSPZ}>{upgrade.priceSPZ} SPT</div>
             </td>
             <td className={styles.center}>

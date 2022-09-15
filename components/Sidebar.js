@@ -32,25 +32,31 @@ const Sidebar = () => {
 
   const { Moralis, isInitialized, isAuthenticated, web3, enableWeb3, account } =
     useMoralis();
-  const { fetchERC20Balances: getBalances } = useERC20Balances();
 
   async function getBalance() {
+    const apiKey = process.env.NEXT_PUBLIC_COVALENT_API_KEY;
+    var response = await fetch(
+      `https://api.covalenthq.com/v1/25/address/${account}/balances_v2/?quote-currency=USD&format=JSON&nft=false&no-nft-fetch=true&key=${apiKey}`
+    );
     console.log("getBalance");
     console.log(account);
-    var balances = await getBalances({
-      chain: "0x19",
-    });
+    var balances = (await response.json()).data.items;
 
     setSptBalance(
-      balances?.find((token) => token.token_address === SpaceOzTokenAddress)
+      balances?.find((token) => token.contract_ticker_symbol === "SPT")
         ?.balance ?? "0"
     );
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    var token = await Moralis.Web3API.account.getNativeBalance({
-      address: account,
-      chain: "0x19",
-    });
-    setBalance((token.balance / 10 ** 18).toFixed(2));
+
+    setBalance(
+      (
+        parseInt(
+          balances?.find((token) => token.contract_ticker_symbol === "CRO")
+            ?.balance ?? "0"
+        ) /
+        10 ** 18
+      ).toFixed(2)
+    );
   }
 
   useEffect(() => {
@@ -109,7 +115,7 @@ const Sidebar = () => {
       </div>
       <div className={styles["sidebar-balance-container"]}>
         <div style={{ fontSize: "20px" }}>Balance</div>
-        <div>{balance} TCRO</div>
+        <div>{balance} CRO</div>
         <div>{sptBalance} SPT</div>
       </div>
     </div>

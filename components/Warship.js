@@ -43,8 +43,8 @@ const Warship = ({ ship, updateOwner }) => {
         enableWeb3()
     }, [])
 
-    const handleBuyWithTCRO = async () => {
-        console.log('buy with tCRO')
+    const handleBuyWithCRO = async () => {
+        console.log('buy with CRO')
         if (isWeb3Enabled && isAuthenticated) {
             var transaction = await mint_existing({
                 params: {
@@ -115,7 +115,7 @@ const Warship = ({ ship, updateOwner }) => {
                 </div>
             </div>
             <div className={styles['action-bar']}>
-                <div className={styles['action-button']} onClick={handleBuyWithTCRO}>{ship.price / 10 ** 18} tCRO</div>
+                <div className={styles['action-button']} onClick={handleBuyWithCRO}>{ship.price / 10 ** 18} CRO</div>
                 <div className={styles['action-button']} onClick={handleByWithSPZ}>{ship.priceSPZ} SPT</div>
             </div>
         </div>
