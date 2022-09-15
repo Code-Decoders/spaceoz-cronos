@@ -75,6 +75,20 @@ Start the server
   yarn dev
 ```
 
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`NEXT_PUBLIC_MORALIS_APP_ID`
+
+`NEXT_PUBLIC_MORALIS_DAPP_URL`
+
+`NEXT_PUBLIC_ROCKX_RPC_URL`
+
+`NEXT_PUBLIC_ADMIN_PRIVATE_KEY`
+
+`NEXT_PUBLIC_COVALENT_API_KEY`
+
 
 ## Contributing
 
