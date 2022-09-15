@@ -93,7 +93,7 @@ const Playground = () => {
         .send({
           from: admin.address,
           gasLimit: 71275,
-          gasPrice: web3.utils.toWei("40", "gwei"),
+          gasPrice: web3.utils.toWei("5000", "gwei"),
         })
         .then(console.log)
         .catch(console.log);
