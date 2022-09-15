@@ -86,12 +86,16 @@ export default function Home() {
   const getData = async () => {
     if (isInitialized && isWeb3Enabled) {
       console.log("getData");
-      const json = await Web3API.token.getAllTokenIds({
-        address: InventoryAddress,
-        chain: "0x19",
-      });
+      const json = (
+        await (
+          await fetch(
+            `https://api.covalenthq.com/v1/25/tokens/${InventoryAddress}/nft_token_ids/?quote-currency=USD&format=JSON&key=${process.env.NEXT_PUBLIC_COVALENT_API_KEY}`
+          )
+        ).json()
+      ).data.items;
 
-      const ids = json.result.map((e) => parseInt(e.token_id));
+
+      const ids = json.map((e) => parseInt(e.token_id));
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const owners_json = await Web3API.token.getNFTOwners({
         chain: "0x19",
