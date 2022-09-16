@@ -24,7 +24,7 @@
 
 ## Demo
 
-Live Website (https://spaceoz-cronos.netlify.app/) deployed using Spheron
+Live Website (https://spaceoz-cronos.netlify.app/)
 
 Youtube Video Demo
 
@@ -34,15 +34,23 @@ Youtube Video Demo
 
 ## Tech Stack
 
-**Client:** NEXT.JS, Moralis, Unity, WebGL, web3.js
+**Client:** NEXT.JS, Moralis, Unity, WebGL, web3.js, Covalent API
 
-**Server:** Solidity (Cronos Testnet)
+**Server:** Solidity (Cronos Mainnet), RockX Node API
+
+
+## Sponsor Use Case
+
+ - **RockX**:  We used the RockX Access Node API to deploy and query on the Cronos Mainnet.
+ - **Covalent**: We have used two Covalent API Endpoints, one for fetching the balances of the users (CRO & SPT) and the other for fetching all the `token_ids` of our Inventory NFT Contract.
+
+
 ## Roadmap
 
 - [x]  Player To Earn
 - [x]  Multiple Owner Ownership
 - [ ]  Multiplayer Support like a open-world a arena
-- [ ]  OpensSea.io integration
+- [ ]  External NFT Marketplace(crosea.io) integration
 - [ ]  Security Enhancements/ Auditing in the Smart Contract
 - [ ]  More upgrades and abilities
 - [ ]  Improve gaming expereince
