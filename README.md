@@ -19,8 +19,8 @@
 
 ## Deployed Smart Contracts
 
-- [The Inventory NFT Token (ERC-1155)](https://testnet.cronoscan.com/address/0x280730941320ab22c4864eddde14ea8859354ba6)
-- [The SPT In-Game-Token (ERC-20)](https://testnet.cronoscan.com/address/0x63ff82f0e62adbbfb3bb946aaf13802f41a83769)
+- [The Inventory NFT Token (ERC-1155)](https://cronoscan.com/address/0x6Cd4999E1e755398CE2fA814CFb87a39E8187701)
+- [The SPT In-Game-Token (CR-20)](https://cronoscan.com/address/0xA01241872c9a06766C08a3D7b414Bdf0E097D857)
 
 ## Demo
 
@@ -28,7 +28,7 @@ Live Website (https://spaceoz-cronos.netlify.app/) deployed using Spheron
 
 Youtube Video Demo
 
-[![Youtube Video](https://img.youtube.com/vi/7LX2aEoyXFc/sddefault.jpg)](https://youtu.be/7LX2aEoyXFc)
+[![Youtube Video](https://img.youtube.com/vi/B2yTpvaeGJ0/sddefault.jpg)](https://youtu.be/B2yTpvaeGJ0)
 
 
 
